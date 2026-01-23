@@ -135,8 +135,6 @@
 <body>
 
   <div class="container">
-
-    <!-- Product Section -->
     <div class="card">
       <h2>🛍️ Select Category</h2>
 
@@ -153,7 +151,6 @@
       <button class="add-btn" id="addToCartBtn">Add to Cart</button>
     </div>
 
-    <!-- Cart Section -->
     <div class="card">
       <h2>🛒 Cart</h2>
 
@@ -167,7 +164,7 @@
   </div>
 
   <script>
-    // Simple category data
+
     const categories = {
       electronics: [
         { name: "Mobile", price: 15000 },
@@ -184,13 +181,12 @@
     };
 
     let currentItems = [];
-    let cart = []; // array to store cart items
+    let cart = []; 
 
     const dropdown = document.getElementById("itemsDropdown");
     const cartItemsDiv = document.getElementById("cartItems");
     const totalPrice = document.getElementById("totalPrice");
 
-    // Load items in dropdown
     function loadItems(categoryName){
       currentItems = categories[categoryName];
 
@@ -204,12 +200,10 @@
       });
     }
 
-    // Button Event Handling
     document.getElementById("electronicsBtn").addEventListener("click", () => loadItems("electronics"));
     document.getElementById("fashionBtn").addEventListener("click", () => loadItems("fashion"));
     document.getElementById("groceryBtn").addEventListener("click", () => loadItems("grocery"));
 
-    // Add to cart
     document.getElementById("addToCartBtn").addEventListener("click", () => {
       if(dropdown.value === ""){
         alert("Please select an item!");
@@ -220,13 +214,11 @@
       renderCart();
     });
 
-    // Remove item
     function removeItem(index){
       cart.splice(index, 1);
       renderCart();
     }
 
-    // Display cart items
     function renderCart(){
       cartItemsDiv.innerHTML = "";
 
