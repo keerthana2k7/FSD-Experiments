@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Shopping Cart</title>
+  <style>
+    *{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container{
+      width: 700px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .card{
+      background: white;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+    }
+
+    h2{
+      margin-bottom: 12px;
+      color: #0f172a;
+    }
+
+    .category-buttons{
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .category-buttons button{
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+    }
+
+    .category-buttons button:hover{
+      background: #1d4ed8;
+    }
+
+    select{
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .add-btn{
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #22c55e;
+      color: white;
+      font-weight: bold;
+    }
+
+    .add-btn:hover{
+      background: #16a34a;
+    }
+
+    .cart-item{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 8px;
+    }
+
+    .remove-btn{
+      border: none;
+      background: #ef4444;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .remove-btn:hover{
+      background: #dc2626;
+    }
+
+    .total{
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: right;
+      color: #0f172a;
+    }
+
+    .empty{
+      color: gray;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    @media(max-width: 750px){
+      .container{
+        width: 100%;
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Product Section -->
+    <div class="card">
+      <h2>🛍️ Select Category</h2>
+
+      <div class="category-buttons">
+        <button id="electronicsBtn">Electronics</button>
+        <button id="fashionBtn">Fashion</button>
+        <button id="groceryBtn">Grocery</button>
+      </div>
+
+      <select id="itemsDropdown">
+        <option value="">-- Select Item --</option>
+      </select>
+
+      <button class="add-btn" id="addToCartBtn">Add to Cart</button>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="card">
+      <h2>🛒 Cart</h2>
+
+      <div id="cartItems" class="empty">Cart is empty</div>
+
+      <div class="total">
+        Total: <span id="totalPrice">₹0</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Simple category data
+    const categories = {
+      electronics: [
+        { name: "Mobile", price: 15000 },
+        { name: "Laptop", price: 55000 }
+      ],
+      fashion: [
+        { name: "T-Shirt", price: 499 },
+        { name: "Shoes", price: 1499 }
+      ],
+      grocery: [
+        { name: "Milk", price: 30 },
+        { name: "Rice", price: 60 }
+      ]
+    };
+
+    let currentItems = [];
+    let cart = []; // array to store cart items
+
+    const dropdown = document.getElementById("itemsDropdown");
+    const cartItemsDiv = document.getElementById("cartItems");
+    const totalPrice = document.getElementById("totalPrice");
+
+    // Load items in dropdown
+    function loadItems(categoryName){
+      currentItems = categories[categoryName];
+
+      dropdown.innerHTML = `<option value="">-- Select Item --</option>`;
+
+      currentItems.forEach((item, index) => {
+        let option = document.createElement("option");
+        option.value = index;
+        option.textContent = `${item.name} - ₹${item.price}`;
+        dropdown.appendChild(option);
+      });
+    }
+
+    // Button Event Handling
+    document.getElementById("electronicsBtn").addEventListener("click", () => loadItems("electronics"));
+    document.getElementById("fashionBtn").addEventListener("click", () => loadItems("fashion"));
+    document.getElementById("groceryBtn").addEventListener("click", () => loadItems("grocery"));
+
+    // Add to cart
+    document.getElementById("addToCartBtn").addEventListener("click", () => {
+      if(dropdown.value === ""){
+        alert("Please select an item!");
+        return;
+      }
+
+      cart.push(currentItems[dropdown.value]);
+      renderCart();
+    });
+
+    // Remove item
+    function removeItem(index){
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    // Display cart items
+    function renderCart(){
+      cartItemsDiv.innerHTML = "";
+
+      if(cart.length === 0){
+        cartItemsDiv.innerHTML = `<div class="empty">Cart is empty</div>`;
+        totalPrice.innerText = "₹0";
+        return;
+      }
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+
+        let div = document.createElement("div");
+        div.className = "cart-item";
+
+        div.innerHTML = `
+          <span>${item.name} (₹${item.price})</span>
+          <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+        `;
+
+        cartItemsDiv.appendChild(div);
+      });
+
+      totalPrice.innerText = "₹" + total;
+    }
+  </script>
+
+</body>
+</html>
