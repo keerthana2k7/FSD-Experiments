@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Professional Mini Shopping Cart</title>
+  <style>
+    *{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container{
+      width: 950px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+    }
+
+    .card{
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0px 8px 22px rgba(0,0,0,0.08);
+    }
+
+    h2{
+      color: #0f172a;
+      margin-bottom: 12px;
+    }
+
+    .category-buttons{
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .category-buttons button{
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .category-buttons button:hover{
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    .select-area{
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    select{
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .add-btn{
+      padding: 10px 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #22c55e;
+      color: white;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .add-btn:hover{
+      background: #16a34a;
+      transform: translateY(-2px);
+    }
+
+    /* Cart */
+    .cart-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .badge{
+      background: #0f172a;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .cart-items{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+      max-height: 330px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    .cart-item{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 12px;
+      background: #f9fafb;
+    }
+
+    .cart-item-left h4{
+      font-size: 15px;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-left small{
+      color: #64748b;
+    }
+
+    .qty-controls{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-btn{
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #e2e8f0;
+      font-weight: bold;
+    }
+
+    .qty-btn:hover{
+      background: #cbd5e1;
+    }
+
+    .remove-btn{
+      border: none;
+      background: #ef4444;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .remove-btn:hover{
+      background: #dc2626;
+    }
+
+    .summary{
+      margin-top: 14px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 16px;
+      color: #0f172a;
+    }
+
+    .empty{
+      text-align: center;
+      color: #64748b;
+      padding: 20px 0;
+    }
+
+    .clear-btn{
+      border: none;
+      background: #0f172a;
+      color: white;
+      padding: 7px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .clear-btn:hover{
+      background: #1e293b;
+    }
+
+    @media(max-width: 900px){
+      .container{
+        width: 100%;
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Products Section -->
+    <div class="card">
+      <h2>🛍️ Choose Category</h2>
+
+      <div class="category-buttons">
+        <button onclick="loadItems('electronics')">Electronics</button>
+        <button onclick="loadItems('fashion')">Fashion</button>
+        <button onclick="loadItems('grocery')">Grocery</button>
+      </div>
+
+      <div class="select-area">
+        <select id="itemsDropdown">
+          <option value="">-- Select Item --</option>
+        </select>
+
+        <button class="add-btn" id="addToCartBtn">Add</button>
+      </div>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="card">
+      <div class="cart-header">
+        <h2>🛒 Cart</h2>
+        <div class="badge" id="cartCount">0 items</div>
+      </div>
+
+      <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+
+      <div class="cart-items" id="cartItems"></div>
+
+      <div class="summary">
+        <span>Total:</span>
+        <span id="totalPrice">₹0</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Categories with price (professional)
+    const categories = {
+      electronics: [
+        { name: "Mobile", price: 15000 },
+        { name: "Laptop", price: 55000 },
+        { name: "Headphones", price: 2000 }
+      ],
+      fashion: [
+        { name: "T-Shirt", price: 499 },
+        { name: "Jeans", price: 999 },
+        { name: "Shoes", price: 1499 }
+      ],
+      grocery: [
+        { name: "Rice", price: 60 },
+        { name: "Milk", price: 30 },
+        { name: "Sugar", price: 45 }
+      ]
+    };
+
+    let currentCategory = [];
+    let cart = []; // cart array of objects
+
+    const dropdown = document.getElementById("itemsDropdown");
+    const cartItemsDiv = document.getElementById("cartItems");
+    const totalPrice = document.getElementById("totalPrice");
+    const cartCount = document.getElementById("cartCount");
+    const addBtn = document.getElementById("addToCartBtn");
+
+    // Load items into dropdown
+    function loadItems(category) {
+      currentCategory = categories[category];
+
+      dropdown.innerHTML = `<option value="">-- Select Item --</option>`;
+
+      currentCategory.forEach((item, index) => {
+        let option = document.createElement("option");
+        option.value = index;
+        option.textContent = `${item.name} - ₹${item.price}`;
+        dropdown.appendChild(option);
+      });
+    }
+
+    // Add to cart
+    addBtn.addEventListener("click", function () {
+      if (dropdown.value === "") {
+        alert("Please select an item!");
+        return;
+      }
+
+      const selectedItem = currentCategory[dropdown.value];
+
+      // check if already in cart
+      const existing = cart.find(c => c.name === selectedItem.name);
+
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...selectedItem, qty: 1 });
+      }
+
+      renderCart();
+    });
+
+    // Increase qty
+    function increaseQty(name) {
+      const item = cart.find(c => c.name === name);
+      if (item) item.qty += 1;
+      renderCart();
+    }
+
+    // Decrease qty
+    function decreaseQty(name) {
+      const item = cart.find(c => c.name === name);
+      if (item) {
+        item.qty -= 1;
+        if (item.qty === 0) {
+          cart = cart.filter(c => c.name !== name);
+        }
+      }
+      renderCart();
+    }
+
+    // Remove item
+    function removeItem(name) {
+      cart = cart.filter(c => c.name !== name);
+      renderCart();
+    }
+
+    // Clear cart
+    function clearCart() {
+      cart = [];
+      renderCart();
+    }
+
+    // Render cart
+    function renderCart() {
+      cartItemsDiv.innerHTML = "";
+
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = `<div class="empty">Cart is empty 🛍️</div>`;
+        totalPrice.innerText = "₹0";
+        cartCount.innerText = "0 items";
+        return;
+      }
+
+      let total = 0;
+      let totalItems = 0;
+
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        totalItems += item.qty;
+
+        const div = document.createElement("div");
+        div.className = "cart-item";
+
+        div.innerHTML = `
+          <div class="cart-item-left">
+            <h4>${item.name}</h4>
+            <small>₹${item.price} × ${item.qty} = ₹${item.price * item.qty}</small>
+          </div>
+
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="decreaseQty('${item.name}')">-</button>
+            <b>${item.qty}</b>
+            <button class="qty-btn" onclick="increaseQty('${item.name}')">+</button>
+          </div>
+
+          <button class="remove-btn" onclick="removeItem('${item.name}')">Remove</button>
+        `;
+
+        cartItemsDiv.appendChild(div);
+      });
+
+      totalPrice.innerText = "₹" + total;
+      cartCount.innerText = totalItems + " items";
+    }
+
+    // initial empty cart
+    renderCart();
+  </script>
+
+</body>
+</html>

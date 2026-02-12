@@ -1,0 +1,932 @@
+//Voter Registration Form 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Form 6 – Voter Registration (Tamil Nadu)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:Segoe UI,Tahoma,Verdana,sans-serif;
+}
+body{
+    background:#f5f7fa;
+    padding:20px;
+}
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    overflow:hidden;
+}
+.header{
+    background:#1e3a8a;
+    color:#fff;
+    padding:25px;
+    border-bottom:5px solid #e63946;
+}
+.header h1{margin:0;}
+.section{
+    padding:25px;
+    border-bottom:1px dashed #ccc;
+}
+.section-title{
+    font-size:18px;
+    color:#1e3a8a;
+    border-bottom:2px solid #e63946;
+    padding-bottom:6px;
+    margin-bottom:20px;
+}
+.row{
+    display:flex;
+    gap:20px;
+    margin-bottom:15px;
+}
+.group{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+label{
+    font-weight:600;
+    margin-bottom:6px;
+}
+.required{
+    color:#e63946;
+}
+input,select{
+    height:42px;
+    padding:0 10px;
+    border:1px solid #ccc;
+    border-radius:4px;
+    font-size:14px;
+}
+input.error{
+    border-color:#e63946;
+    background-color:#fff5f5;
+}
+.error-message{
+    color:#e63946;
+    font-size:12px;
+    margin-top:4px;
+    display:none;
+}
+.info-message{
+    color:#1e3a8a;
+    font-size:12px;
+    margin-top:4px;
+    font-style:italic;
+}
+input[type="radio"],input[type="checkbox"]{
+    height:auto;
+}
+.inline{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+.photo-box{
+    width:160px;
+    height:190px;
+    border:2px dashed #999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    text-align:center;
+}
+.buttons{
+    padding:25px;
+    display:flex;
+    gap:15px;
+}
+button{
+    height:45px;
+    border:none;
+    font-size:16px;
+    font-weight:600;
+    border-radius:4px;
+    cursor:pointer;
+    transition:background 0.3s;
+}
+.submit{
+    background:#1e3a8a;
+    color:white;
+    flex:2;
+}
+.submit:hover{
+    background:#172a6c;
+}
+.reset{
+    flex:1;
+    background:#f1f1f1;
+}
+.reset:hover{
+    background:#e0e0e0;
+}
+.footer{
+    background:#f9f9f9;
+    padding:20px;
+    font-size:14px;
+}
+.age-display{
+    background:#f0f8ff;
+    padding:10px 15px;
+    border-radius:4px;
+    margin-top:10px;
+    border-left:4px solid #1e3a8a;
+    font-weight:600;
+}
+.age-display.error{
+    background:#fff5f5;
+    border-left-color:#e63946;
+}
+.upload-section{
+    background:#f9f9f9;
+    padding:15px;
+    border-radius:4px;
+    margin-top:10px;
+    border:1px dashed #ccc;
+}
+.upload-box{
+    width:100%;
+    height:100px;
+    border:2px dashed #999;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    text-align:center;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+.upload-box:hover{
+    border-color:#1e3a8a;
+    background:#f0f8ff;
+}
+.upload-icon{
+    font-size:24px;
+    margin-bottom:5px;
+}
+.file-list{
+    margin-top:10px;
+}
+.file-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#fff;
+    padding:8px 12px;
+    margin-bottom:5px;
+    border-radius:4px;
+    border:1px solid #eee;
+}
+.file-name{
+    flex:1;
+    font-size:14px;
+}
+.file-size{
+    color:#666;
+    font-size:12px;
+    margin-left:10px;
+}
+.remove-file{
+    color:#e63946;
+    cursor:pointer;
+    font-weight:bold;
+    margin-left:10px;
+}
+.success-container{
+    max-width:800px;
+    margin:50px auto;
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    padding:40px;
+    text-align:center;
+    display:none;
+}
+.success-icon{
+    font-size:60px;
+    color:#4CAF50;
+    margin-bottom:20px;
+}
+.success-title{
+    color:#1e3a8a;
+    font-size:28px;
+    margin-bottom:20px;
+}
+.success-details{
+    background:#f0f8ff;
+    border-radius:8px;
+    padding:25px;
+    margin:30px 0;
+    text-align:left;
+}
+.success-item{
+    margin-bottom:15px;
+    display:flex;
+    align-items:flex-start;
+}
+.success-icon-small{
+    font-size:20px;
+    margin-right:15px;
+    min-width:25px;
+}
+.success-text{
+    font-size:16px;
+    line-height:1.5;
+}
+.reference-number{
+    background:#1e3a8a;
+    color:white;
+    padding:10px 20px;
+    border-radius:4px;
+    font-size:18px;
+    font-weight:bold;
+    display:inline-block;
+    margin:10px 0;
+}
+.home-btn{
+    background:#1e3a8a;
+    color:white;
+    padding:12px 30px;
+    border:none;
+    border-radius:4px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:20px;
+    text-decoration:none;
+    display:inline-block;
+}
+.home-btn:hover{
+    background:#172a6c;
+}
+@media(max-width:768px){
+    .row{flex-direction:column;}
+    .success-container{
+        padding:20px;
+        margin:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="mainForm">
+
+<div class="header">
+<h1>FORM-6 – Application for Inclusion of Name in Electoral Roll</h1>
+<p>Election Commission of India – Tamil Nadu</p>
+</div>
+
+<form id="form6">
+
+
+<div class="section">
+<div class="section-title">(1) Name of the Applicant</div>
+
+<div class="row">
+<div class="group">
+<label>(1)(a) Name (Official Language of State) <span class="required">*</span></label>
+<input type="text" id="nameState" data-type="text" maxlength="100" onkeydown="return validateTextInput(event)">
+<div class="error-message" id="nameStateError">Please enter valid name (letters only)</div>
+</div>
+
+<div class="photo-box">
+SPACE FOR PASTING<br>
+PASSPORT SIZE<br>
+PHOTO<br>
+4.5cm × 3.5cm
+</div>
+</div>
+
+<div class="row">
+<div class="group">
+<label>First & Middle Name <span class="required">*</span></label>
+<input type="text" id="firstName" data-type="text" maxlength="50" onkeydown="return validateTextInput(event)">
+<div class="error-message" id="firstNameError">Please enter valid first & middle name</div>
+</div>
+<div class="group">
+<label>Surname (if any)</label>
+<input type="text" id="surname" data-type="text" maxlength="50" onkeydown="return validateTextInput(event)">
+</div>
+</div>
+
+<div class="row">
+<div class="group">
+<label>(1)(b) Name (In English – BLOCK LETTERS) <span class="required">*</span></label>
+<input type="text" id="nameEnglish" data-type="text" maxlength="100" onkeydown="return validateTextInput(event)">
+<div class="error-message" id="nameEnglishError">Please enter name in English</div>
+</div>
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">(2) Relative Details</div>
+
+<label>(2)(a) Relative Type <span class="required">*</span></label>
+<div class="inline">
+<label><input type="radio" name="rel" value="Father"> Father</label>
+<label><input type="radio" name="rel" value="Mother"> Mother</label>
+<label><input type="radio" name="rel" value="Husband"> Husband</label>
+<label><input type="radio" name="rel" value="Wife"> Wife</label>
+<label><input type="radio" name="rel" value="Legal Guardian"> Legal Guardian</label>
+</div>
+<div class="error-message" id="relError">Please select relative type</div>
+
+<div class="row">
+<div class="group">
+<label>(2)(b) Relative Name (English – BLOCK LETTERS) <span class="required">*</span></label>
+<input type="text" id="relativeName" data-type="text" maxlength="100" onkeydown="return validateTextInput(event)">
+<div class="error-message" id="relativeNameError">Please enter relative name</div>
+</div>
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">(3) & (4) Contact Details</div>
+
+<div class="row">
+<div class="group">
+<label>Mobile Number <span class="required">*</span></label>
+<input type="tel" id="mobile" data-type="number" maxlength="10" onkeydown="return validateNumberInput(event)">
+<div class="error-message" id="mobileError">Please enter valid 10-digit mobile number</div>
+</div>
+<div class="group">
+<label>Email ID <span class="required">*</span></label>
+<input type="email" id="email">
+<div class="error-message" id="emailError">Please enter valid email address</div>
+</div>
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">(5) Aadhaar Details</div>
+
+<div class="inline">
+<label><input type="radio" name="aadhaar" id="aadhaarYes" value="yes"> Aadhaar Number</label>
+<input type="text" id="aadhaarNo" placeholder="12-digit Aadhaar" data-type="number" maxlength="12" onkeydown="return validateNumberInput(event)" disabled>
+</div>
+
+<div class="inline">
+<label><input type="radio" name="aadhaar" id="aadhaarNoCheck" value="no" checked> I do not have Aadhaar Number</label>
+</div>
+<div class="error-message" id="aadhaarError">Please enter valid 12-digit Aadhaar number</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">(6) Gender <span class="required">*</span></div>
+<div class="inline">
+<label><input type="radio" name="gender" value="Male"> Male</label>
+<label><input type="radio" name="gender" value="Female"> Female</label>
+<label><input type="radio" name="gender" value="Third Gender"> Third Gender</label>
+</div>
+<div class="error-message" id="genderError">Please select gender</div>
+</div>
+
+<div class="section">
+<div class="section-title">(7) Date of Birth <span class="required">*</span></div>
+
+<div class="row">
+<div class="group">
+<label>Date of Birth <span class="required">*</span></label>
+<input type="date" id="dob">
+<div class="error-message" id="dobError">Date of birth is required</div>
+<div id="ageDisplay" class="age-display" style="display:none;">
+    Calculated Age: <span id="ageValue">0</span> years
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="group">
+<label>Age Proof Document Type <span class="required">*</span></label>
+<select id="ageProof">
+<option value="">Select Document</option>
+<option value="Birth Certificate">Birth Certificate</option>
+<option value="Aadhaar">Aadhaar</option>
+<option value="PAN Card">PAN Card</option>
+<option value="Driving License">Driving License</option>
+<option value="Passport">Passport</option>
+<option value="Class X / XII Certificate">Class X / XII Certificate</option>
+<option value="Other">Other</option>
+</select>
+<div class="error-message" id="ageProofError">Please select age proof document</div>
+</div>
+</div>
+
+<div class="upload-section">
+<label>Upload Age Proof Document <span class="required">*</span></label>
+<div class="info-message">Maximum file size: 100MB | Allowed formats: PDF, JPG, PNG</div>
+<div class="upload-box" id="uploadBox">
+    <div class="upload-icon">📁</div>
+    <div>Click to upload or drag and drop</div>
+    <div style="font-size:12px; color:#666;">PDF, JPG, PNG (Max 100MB)</div>
+</div>
+<input type="file" id="ageProofFile" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" multiple>
+<div class="file-list" id="fileList"></div>
+<div class="error-message" id="fileError">Please upload age proof document</div>
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">(8) Present Ordinary Residence <span class="required">*</span></div>
+
+<div class="row">
+<div class="group">
+<label>House / Building No <span class="required">*</span></label>
+<input type="text" id="houseNo" data-type="alphanumeric" maxlength="20">
+<div class="error-message" id="houseNoError">Please enter house/building number</div>
+</div>
+<div class="group">
+<label>Street / Area <span class="required">*</span></label>
+<input type="text" id="street" data-type="alphanumeric" maxlength="100">
+<div class="error-message" id="streetError">Please enter street/area</div>
+</div>
+</div>
+
+<div class="row">
+<div class="group">
+<label>Town / Village <span class="required">*</span></label>
+<input type="text" id="town" data-type="text" maxlength="50" onkeydown="return validateTextInput(event)">
+<div class="error-message" id="townError">Please enter town/village</div>
+</div>
+<div class="group">
+<label>District <span class="required">*</span></label>
+<input type="text" id="district" data-type="text" maxlength="50" onkeydown="return validateTextInput(event)">
+<div class="error-message" id="districtError">Please enter district</div>
+</div>
+<div class="group">
+<label>PIN Code <span class="required">*</span></label>
+<input type="text" id="pin" data-type="number" maxlength="6" onkeydown="return validateNumberInput(event)">
+<div class="error-message" id="pinError">Please enter valid 6-digit PIN code</div>
+</div>
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">(9) Disability (Optional)</div>
+
+<div class="inline">
+<label><input type="checkbox" id="disabilityLocomotive"> Locomotive</label>
+<label><input type="checkbox" id="disabilityVisual"> Visual</label>
+<label><input type="checkbox" id="disabilityDeaf"> Deaf & Dumb</label>
+</div>
+
+<div class="row">
+<div class="group">
+<label>Other (Specify)</label>
+<input type="text" id="disabilityOther" data-type="text" maxlength="50" onkeydown="return validateTextInput(event)">
+</div>
+<div class="group">
+<label>Percentage</label>
+<input type="number" id="disabilityPercent" min="1" max="100">
+</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">(10) Family Member in Electoral Roll <span class="required">*</span></div>
+
+<div class="row">
+<div class="group">
+<label>Name <span class="required">*</span></label>
+<input type="text" id="familyName" data-type="text" maxlength="50" onkeydown="return validateTextInput(event)">
+<div class="error-message" id="familyNameError">Please enter family member name</div>
+</div>
+<div class="group">
+<label>Relationship <span class="required">*</span></label>
+<input type="text" id="familyRelation" data-type="text" maxlength="30" onkeydown="return validateTextInput(event)">
+<div class="error-message" id="familyRelationError">Please enter relationship</div>
+</div>
+<div class="group">
+<label>EPIC No <span class="required">*</span></label>
+<input type="text" id="epicNo" data-type="alphanumeric" maxlength="20">
+<div class="error-message" id="epicNoError">Please enter EPIC number</div>
+</div>
+</div>
+</div>
+
+
+<div class="section">
+<div class="section-title">DECLARATION</div>
+<p>I hereby declare that I am a citizen of India and the above information is true.</p>
+</div>
+
+<div class="buttons">
+<button class="reset" type="reset" id="resetBtn">Reset</button>
+<button class="submit" type="submit">Submit</button>
+</div>
+
+<div class="footer">
+<p><strong>Note:</strong> Submission of self-attested documents ensures speedy processing.</p>
+<p><span class="required">*</span> Indicates required field</p>
+</div>
+
+</form>
+
+</div>
+
+
+<div class="success-container" id="successPage">
+    <div class="success-icon">✅</div>
+    <h1 class="success-title">Application Submitted Successfully!</h1>
+   
+    <div class="success-details">
+        <div class="success-item">
+            <div class="success-icon-small">📋</div>
+            <div class="success-text">
+                <strong>Your voter registration application has been received.</strong>
+            </div>
+        </div>
+       
+        <div class="success-item">
+            <div class="success-icon-small">🔢</div>
+            <div class="success-text">
+                <div>Application Reference Number:</div>
+                <div class="reference-number" id="referenceNumber">TN-000000</div>
+            </div>
+        </div>
+       
+        <div class="success-item">
+            <div class="success-icon-small">📅</div>
+            <div class="success-text">
+                <strong>Your Voter ID will be delivered within one month.</strong><br>
+                You can track your application status using the reference number.
+            </div>
+        </div>
+       
+        <div class="success-item">
+            <div class="success-icon-small">📧</div>
+            <div class="success-text">
+                <strong>You will receive updates on your registered email and mobile number.</strong><br>
+                Please check your email and SMS regularly for updates.
+            </div>
+        </div>
+    </div>
+   
+    <p style="font-size:18px; margin-top:20px;">Thank you for registering as a voter!</p>
+   
+    <button class="home-btn" onclick="location.reload()">Submit Another Application</button>
+</div>
+
+<script>
+
+let uploadedFiles = [];
+
+
+function validateTextInput(event) {
+
+    if ([8, 9, 13, 27].includes(event.keyCode) ||
+        (event.ctrlKey && [65, 67, 86, 88].includes(event.keyCode))) {
+        return true;
+    }
+   
+
+    const char = String.fromCharCode(event.keyCode);
+    if (/^[a-zA-Z\s\-']+$/.test(char)) {
+        return true;
+    }
+   
+    event.preventDefault();
+    return false;
+}
+
+function validateNumberInput(event) {
+
+    if ([8, 9, 13, 27].includes(event.keyCode) ||
+        (event.ctrlKey && [65, 67, 86, 88].includes(event.keyCode))) {
+        return true;
+    }
+
+    const char = String.fromCharCode(event.keyCode);
+    if (/^[0-9]+$/.test(char)) {
+        return true;
+    }
+   
+    event.preventDefault();
+    return false;
+}
+
+function calculateAge(dob) {
+    const today = new Date();
+    const birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+   
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+   
+    return age;
+}
+
+function updateAgeDisplay() {
+    const dobInput = document.getElementById('dob');
+    const ageDisplay = document.getElementById('ageDisplay');
+    const ageValue = document.getElementById('ageValue');
+   
+    if (dobInput.value) {
+        const age = calculateAge(dobInput.value);
+        ageValue.textContent = age;
+        ageDisplay.style.display = 'block';
+       
+        if (age < 18) {
+            ageDisplay.classList.add('error');
+            ageDisplay.innerHTML = `Calculated Age: <span id="ageValue">${age}</span> years <span style="color:#e63946; font-weight:normal;">(Minimum age required: 18 years)</span>`;
+        } else {
+            ageDisplay.classList.remove('error');
+            ageDisplay.innerHTML = `Calculated Age: <span id="ageValue">${age}</span> years`;
+        }
+    } else {
+        ageDisplay.style.display = 'none';
+    }
+}
+
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+function renderFileList() {
+    const fileList = document.getElementById('fileList');
+    fileList.innerHTML = '';
+   
+    uploadedFiles.forEach((file, index) => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        fileItem.innerHTML = `
+            <div class="file-name">${file.name}</div>
+            <div class="file-size">${formatFileSize(file.size)}</div>
+            <div class="remove-file" onclick="removeFile(${index})">✕</div>
+        `;
+        fileList.appendChild(fileItem);
+    });
+}
+
+function removeFile(index) {
+    uploadedFiles.splice(index, 1);
+    renderFileList();
+}
+
+function validateFile(file) {
+    const maxSize = 100 * 1024 * 1024;
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+   
+    if (file.size > maxSize) {
+        alert(`File "${file.name}" exceeds the maximum size limit of 100MB.`);
+        return false;
+    }
+   
+    if (!allowedTypes.includes(file.type)) {
+        alert(`File "${file.name}" has an invalid format. Only PDF, JPG, and PNG files are allowed.`);
+        return false;
+    }
+   
+    return true;
+}
+
+document.getElementById('aadhaarYes').addEventListener('change', function() {
+    document.getElementById('aadhaarNo').disabled = !this.checked;
+    if (this.checked) {
+        document.getElementById('aadhaarNo').focus();
+    }
+});
+
+document.getElementById('aadhaarNoCheck').addEventListener('change', function() {
+    document.getElementById('aadhaarNo').disabled = this.checked;
+    if (this.checked) {
+        document.getElementById('aadhaarNo').value = '';
+    }
+});
+
+const today = new Date();
+const minDate = new Date();
+minDate.setFullYear(today.getFullYear() - 120); // 120 years ago
+const maxDate = new Date();
+maxDate.setFullYear(today.getFullYear() - 18); // 18 years ago
+
+document.getElementById('dob').min = minDate.toISOString().split('T')[0];
+document.getElementById('dob').max = maxDate.toISOString().split('T')[0];
+
+document.getElementById('dob').addEventListener('change', updateAgeDisplay);
+
+document.getElementById('uploadBox').addEventListener('click', function() {
+    document.getElementById('ageProofFile').click();
+});
+
+document.getElementById('ageProofFile').addEventListener('change', function(e) {
+    const files = Array.from(e.target.files);
+   
+    files.forEach(file => {
+        if (validateFile(file)) {
+            uploadedFiles.push(file);
+        }
+    });
+   
+    renderFileList();
+
+    e.target.value = '';
+});
+
+document.getElementById('uploadBox').addEventListener('dragover', function(e) {
+    e.preventDefault();
+    this.style.borderColor = '#1e3a8a';
+    this.style.backgroundColor = '#f0f8ff';
+});
+
+document.getElementById('uploadBox').addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    this.style.borderColor = '#999';
+    this.style.backgroundColor = '';
+});
+
+document.getElementById('uploadBox').addEventListener('drop', function(e) {
+    e.preventDefault();
+    this.style.borderColor = '#999';
+    this.style.backgroundColor = '';
+   
+    const files = Array.from(e.dataTransfer.files);
+   
+    files.forEach(file => {
+        if (validateFile(file)) {
+            uploadedFiles.push(file);
+        }
+    });
+   
+    renderFileList();
+});
+
+document.getElementById('form6').addEventListener('submit', function(e) {
+    e.preventDefault();
+        document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+    document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+   
+    let isValid = true;
+
+    const requiredTextFields = [
+        {id: 'nameState', errorId: 'nameStateError', minLength: 3},
+        {id: 'firstName', errorId: 'firstNameError', minLength: 3},
+        {id: 'nameEnglish', errorId: 'nameEnglishError', minLength: 3},
+        {id: 'relativeName', errorId: 'relativeNameError', minLength: 3},
+        {id: 'houseNo', errorId: 'houseNoError', minLength: 1},
+        {id: 'street', errorId: 'streetError', minLength: 3},
+        {id: 'town', errorId: 'townError', minLength: 2},
+        {id: 'district', errorId: 'districtError', minLength: 2},
+        {id: 'familyName', errorId: 'familyNameError', minLength: 3},
+        {id: 'familyRelation', errorId: 'familyRelationError', minLength: 2},
+        {id: 'epicNo', errorId: 'epicNoError', minLength: 1}
+    ];
+   
+    requiredTextFields.forEach(field => {
+        const element = document.getElementById(field.id);
+        if (!element.value.trim() || element.value.trim().length < field.minLength) {
+            element.classList.add('error');
+            document.getElementById(field.errorId).style.display = 'block';
+            isValid = false;
+        }
+    });
+   
+    const mobile = document.getElementById('mobile').value.trim();
+    if (!mobile || !/^[0-9]{10}$/.test(mobile)) {
+        document.getElementById('mobile').classList.add('error');
+        document.getElementById('mobileError').style.display = 'block';
+        isValid = false;
+    }
+
+    const email = document.getElementById('email').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('email').classList.add('error');
+        document.getElementById('emailError').textContent = 'Please enter valid email address';
+        document.getElementById('emailError').style.display = 'block';
+        isValid = false;
+    }
+
+    if (document.getElementById('aadhaarYes').checked) {
+        const aadhaar = document.getElementById('aadhaarNo').value.trim();
+        if (!aadhaar || !/^[0-9]{12}$/.test(aadhaar)) {
+            document.getElementById('aadhaarNo').classList.add('error');
+            document.getElementById('aadhaarError').style.display = 'block';
+            isValid = false;
+        }
+    }
+
+    const genderSelected = document.querySelector('input[name="gender"]:checked');
+    if (!genderSelected) {
+        document.getElementById('genderError').style.display = 'block';
+        isValid = false;
+    }
+
+    const relSelected = document.querySelector('input[name="rel"]:checked');
+    if (!relSelected) {
+        document.getElementById('relError').style.display = 'block';
+        isValid = false;
+    }
+
+    const dob = document.getElementById('dob').value;
+    if (!dob) {
+        document.getElementById('dob').classList.add('error');
+        document.getElementById('dobError').style.display = 'block';
+        isValid = false;
+    } else {
+        const birthDate = new Date(dob);
+        const age = today.getFullYear() - birthDate.getFullYear();
+        if (age < 18) {
+            document.getElementById('dob').classList.add('error');
+            document.getElementById('dobError').textContent = 'Applicant must be at least 18 years old';
+            document.getElementById('dobError').style.display = 'block';
+            isValid = false;
+        }
+    }
+
+    const ageProof = document.getElementById('ageProof').value;
+    if (!ageProof) {
+        document.getElementById('ageProof').classList.add('error');
+        document.getElementById('ageProofError').style.display = 'block';
+        isValid = false;
+    }
+
+    if (uploadedFiles.length === 0) {
+        document.getElementById('fileError').style.display = 'block';
+        isValid = false;
+    }
+
+    const pin = document.getElementById('pin').value.trim();
+    if (!pin || !/^[0-9]{6}$/.test(pin)) {
+        document.getElementById('pin').classList.add('error');
+        document.getElementById('pinError').style.display = 'block';
+        isValid = false;
+    }
+   
+    if (isValid) {
+        alert('✅ Form submitted successfully!');
+        const refNumber = 'TN-' + Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('mainForm').style.display = 'none';
+        document.getElementById('successPage').style.display = 'block';
+        document.getElementById('referenceNumber').textContent = refNumber;
+        console.log('Form data submitted:', {
+            nameState: document.getElementById('nameState').value,
+            firstName: document.getElementById('firstName').value,
+            nameEnglish: document.getElementById('nameEnglish').value,
+            relativeName: document.getElementById('relativeName').value,
+            mobile: document.getElementById('mobile').value,
+            email: document.getElementById('email').value,
+            age: calculateAge(document.getElementById('dob').value),
+            aadhaar: document.getElementById('aadhaarYes').checked ? document.getElementById('aadhaarNo').value : 'Not provided',
+            dob: document.getElementById('dob').value,
+            ageProofType: document.getElementById('ageProof').value,
+            uploadedFiles: uploadedFiles.map(f => ({name: f.name, size: f.size, type: f.type})),
+            familyMember: {
+                name: document.getElementById('familyName').value,
+                relation: document.getElementById('familyRelation').value,
+                epicNo: document.getElementById('epicNo').value
+            },
+            address: {
+                houseNo: document.getElementById('houseNo').value,
+                street: document.getElementById('street').value,
+                town: document.getElementById('town').value,
+                district: document.getElementById('district').value,
+                pin: document.getElementById('pin').value
+            },
+            referenceNumber: refNumber
+        });
+    } else {
+        const firstError = document.querySelector('.error');
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+});
+
+document.getElementById('resetBtn').addEventListener('click', function() {
+    if (confirm('Are you sure you want to reset the form? All entered data will be lost.')) {
+        document.getElementById('form6').reset();
+        document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+        document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+        document.getElementById('aadhaarNo').disabled = true;
+        document.getElementById('ageDisplay').style.display = 'none';
+        uploadedFiles = [];
+        renderFileList();
+    }
+});
+</script>
+</body>
+</html>
