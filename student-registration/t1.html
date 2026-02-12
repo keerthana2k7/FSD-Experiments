@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Voter Registration Form</title>
+
+  <style>
+    *{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background: #f2f2f2;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+    }
+
+    .container{
+      width: 100%;
+      max-width: 650px;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+    }
+
+    h2{
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #eee;
+    }
+
+    label{
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    .req{
+      color: red;
+      font-weight: bold;
+      margin-left: 3px;
+    }
+
+    input, select, textarea{
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus{
+      border-color: #007bff;
+    }
+
+    textarea{
+      resize: none;
+    }
+
+    .gender-box{
+      display: flex;
+      gap: 15px;
+      margin-top: 8px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .gender-box label{
+      margin: 0;
+      font-weight: normal;
+    }
+
+    .error{
+      color: red;
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .btns{
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    button{
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .submit-btn{
+      background: #28a745;
+      color: white;
+    }
+
+    .submit-btn:hover{
+      background: #1f7d35;
+    }
+
+    .reset-btn{
+      background: #dc3545;
+      color: white;
+    }
+
+    .reset-btn:hover{
+      background: #b02a37;
+    }
+
+    .success{
+      margin-top: 15px;
+      padding: 12px;
+      background: #e8ffe8;
+      border: 1px solid #7bd67b;
+      border-radius: 6px;
+      color: #1f7d35;
+      font-weight: bold;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Voter Registration Form</h2>
+
+    <form id="voterForm">
+
+      <label>Full Name <span class="req">*</span></label>
+      <input type="text" id="name" placeholder="Enter full name">
+      <div class="error" id="nameError"></div>
+
+      <label>Date of Birth <span class="req">*</span></label>
+      <input type="date" id="dob">
+      <div class="error" id="dobError"></div>
+
+      <label>Age  <span class="req">*</span></label>
+      <input type="number" id="age" placeholder="Age will be calculated" readonly>
+      <div class="error" id="ageError"></div>
+
+      <label>Gender <span class="req">*</span></label>
+      <div class="gender-box">
+        <label><input type="radio" name="gender" value="Male"> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+      <div class="error" id="genderError"></div>
+
+      <label>Mobile Number <span class="req">*</span></label>
+      <input type="text" id="mobile" placeholder="Enter 10-digit mobile number" maxlength="10" minlength="10">
+      <div class="error" id="mobileError"></div>
+
+      <label>Email <span class="req">*</span></label>
+      <input type="text" id="email" placeholder="Enter email">
+      <div class="error" id="emailError"></div>
+
+      <label>Aadhaar Number <span class="req">*</span></label>
+      <input type="text" id="aadhaar" placeholder="Enter 12-digit Aadhaar number" minlength="12" maxlength="12">
+      <div class="error" id="aadhaarError"></div>
+
+      <label>Address <span class="req">*</span></label>
+      <textarea id="address" rows="3" placeholder="Enter address"></textarea>
+      <div class="error" id="addressError"></div>
+
+      <label>City <span class="req">*</span></label>
+      <input type="text" id="city" placeholder="Enter city">
+      <div class="error" id="cityError"></div>
+
+      <label>State <span class="req">*</span></label>
+      <select id="state">
+        <option value="">-- Select State --</option>
+        <option value="Tamil Nadu">Tamil Nadu</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Karnataka">Karnataka</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Telangana">Telangana</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Delhi">Delhi</option>
+      </select>
+      <div class="error" id="stateError"></div>
+
+      <label>Pincode <span class="req">*</span></label>
+      <input type="text" id="pincode" placeholder="Enter 6-digit pincode" maxlength="6" minlength="6">
+      <div class="error" id="pincodeError"></div>
+
+      <label>ID Proof <span class="req">*</span></label>
+      <select id="idproof">
+        <option value="">-- Select ID Proof --</option>
+        <option value="Aadhaar">Aadhaar</option>
+        <option value="PAN">PAN</option>
+        <option value="Driving License">Driving License</option>
+        <option value="Passport">Passport</option>
+      </select>
+      <div class="error" id="idproofError"></div>
+
+      <div class="btns">
+        <button type="submit" class="submit-btn">Submit</button>
+        <button type="reset" class="reset-btn">Reset</button>
+      </div>
+
+      <div class="success" id="successMsg">Successfully Registered ✅</div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("voterForm");
+    const dobInput = document.getElementById("dob");
+    const ageInput = document.getElementById("age");
+
+    dobInput.addEventListener("change", function () {
+      if (!dobInput.value) {
+        ageInput.value = "";
+        return;
+      }
+
+      let dob = new Date(dobInput.value);
+      let today = new Date();
+
+      let age = today.getFullYear() - dob.getFullYear();
+      let m = today.getMonth() - dob.getMonth();
+
+      if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+      }
+
+      ageInput.value = age;
+    });
+
+    function onlyDigits(id) {
+      document.getElementById(id).addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "");
+      });
+    }
+    onlyDigits("mobile");
+    onlyDigits("aadhaar");
+    onlyDigits("pincode");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let name = document.getElementById("name").value.trim();
+      let dob = document.getElementById("dob").value;
+      let age = document.getElementById("age").value.trim();
+      let mobile = document.getElementById("mobile").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let aadhaar = document.getElementById("aadhaar").value.trim();
+      let address = document.getElementById("address").value.trim();
+      let city = document.getElementById("city").value.trim();
+      let state = document.getElementById("state").value;
+      let pincode = document.getElementById("pincode").value.trim();
+      let idproof = document.getElementById("idproof").value;
+
+      let gender = document.querySelector('input[name="gender"]:checked');
+
+      let namePattern = /^[A-Za-z ]{3,}$/;
+      let mobilePattern = /^\d{10}$/;   
+      let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      let aadhaarPattern = /^\d{12}$/;  
+      let pincodePattern = /^\d{6}$/;  
+
+      document.querySelectorAll(".error").forEach(el => el.innerHTML = "");
+      document.getElementById("successMsg").style.display = "none";
+
+      let isValid = true;
+
+      if (!namePattern.test(name)) {
+        document.getElementById("nameError").innerHTML = "Enter valid name (min 3 letters).";
+        isValid = false;
+      }
+      if (dob === "") {
+        document.getElementById("dobError").innerHTML = "Please select Date of Birth.";
+        isValid = false;
+      }
+      if (age === "" || isNaN(age) || Number(age) < 18) {
+        document.getElementById("ageError").innerHTML = "Age must be 18 or above.";
+        isValid = false;
+        }
+      if (!gender) {
+        document.getElementById("genderError").innerHTML = "Please select gender.";
+        isValid = false;
+      }
+      if (!mobilePattern.test(mobile)) {
+        document.getElementById("mobileError").innerHTML = "Mobile number must be exactly 10 digits.";
+        isValid = false;
+      }
+      if (!emailPattern.test(email)) {
+        document.getElementById("emailError").innerHTML = "Enter valid email address.";
+        isValid = false;
+      }
+      if (!aadhaarPattern.test(aadhaar)) {
+        document.getElementById("aadhaarError").innerHTML = "Aadhaar must be exactly 12 digits.";
+        isValid = false;
+      }
+      if (address.length < 10) {
+        document.getElementById("addressError").innerHTML = "Address must be at least 10 characters.";
+        isValid = false;
+      }
+      if (city.length < 3) {
+        document.getElementById("cityError").innerHTML = "Enter valid city name.";
+        isValid = false;
+      }
+      if (state === "") {
+        document.getElementById("stateError").innerHTML = "Please select state.";
+        isValid = false;
+      }
+      if (!pincodePattern.test(pincode)) {
+        document.getElementById("pincodeError").innerHTML = "Pincode must be exactly 6 digits.";
+        isValid = false;
+      }
+      if (idproof === "") {
+        document.getElementById("idproofError").innerHTML = "Please select ID proof.";
+        isValid = false;
+      }
+      if (isValid) {
+        document.getElementById("successMsg").style.display = "block";
+        form.reset();
+        ageInput.value = ""; 
+      }
+    });
+  </script>
+</body>
+</html>

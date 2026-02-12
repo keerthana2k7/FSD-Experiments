@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real Calculator</title>
+  <style>
+    *{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .calculator{
+      width: 340px;
+      background: #ffffff;
+      padding: 22px;
+      border-radius: 18px;
+      box-shadow: 0px 10px 30px rgba(0,0,0,0.12);
+      border: 1px solid #e5e7eb;
+    }
+
+    h2{
+      text-align: center;
+      margin-bottom: 15px;
+      color: #0f172a;
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .display{
+      width: 100%;
+      height: 65px;
+      font-size: 26px;
+      padding: 12px;
+      text-align: right;
+      border: 2px solid #e5e7eb;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      outline: none;
+      background: #f9fafb;
+      color: #111827;
+    }
+
+    .buttons{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    button{
+      height: 55px;
+      font-size: 18px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .number{
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid #e5e7eb;
+    }
+
+    .number:hover{
+      transform: translateY(-2px);
+      background: #f1f5f9;
+    }
+
+    .operator{
+      background: #2563eb;
+      color: white;
+    }
+
+    .operator:hover{
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    .clear{
+      background: #ef4444;
+      color: white;
+    }
+
+    .clear:hover{
+      background: #dc2626;
+      transform: translateY(-2px);
+    }
+
+    .equal{
+      background: #22c55e;
+      color: white;
+      grid-column: span 2;
+    }
+
+    .equal:hover{
+      background: #16a34a;
+      transform: translateY(-2px);
+    }
+    .zero{
+      grid-column: span 2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="calculator">
+    <h2>Calculator</h2>
+
+    <input type="text" id="display" class="display" readonly placeholder="0">
+
+    <div class="buttons">
+      <button class="clear" data-value="C">C</button>
+      <button class="operator" data-value="%">%</button>
+      <button class="operator" data-value="⌫">⌫</button>
+      <button class="operator" data-value="/">÷</button>
+
+      <button class="number" data-value="7">7</button>
+      <button class="number" data-value="8">8</button>
+      <button class="number" data-value="9">9</button>
+      <button class="operator" data-value="*">×</button>
+
+      <button class="number" data-value="4">4</button>
+      <button class="number" data-value="5">5</button>
+      <button class="number" data-value="6">6</button>
+      <button class="operator" data-value="-">−</button>
+
+      <button class="number" data-value="1">1</button>
+      <button class="number" data-value="2">2</button>
+      <button class="number" data-value="3">3</button>
+      <button class="operator" data-value="+">+</button>
+
+      <button class="number zero" data-value="0">0</button>
+      <button class="number" data-value=".">.</button>
+      <button class="equal" data-value="=">=</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById("display");
+    const buttons = document.querySelectorAll("button");
+    let expression = "";
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const value = btn.getAttribute("data-value");
+
+        if (value === "C") {
+          expression = "";
+          display.value = "";
+        }
+        else if (value === "⌫") {
+          expression = expression.slice(0, -1);
+          display.value = expression;
+        }
+        else if (value === "=") {
+          try {
+            if (expression.trim() === "") return;
+            let result = eval(expression);
+            display.value = result;
+            expression = result.toString();
+          } catch {
+            display.value = "Error";
+            expression = "";
+          }
+        }
+        else {
+          expression += value;
+          display.value = expression;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
