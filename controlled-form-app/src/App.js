@@ -8,22 +8,56 @@ function App() {
     mobile: ""
   });
 
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const validate = () => {
+    let newErrors = {};
+
+    if (!form.regNo) {
+      newErrors.regNo = "Registration number is required";
+    } else if (form.regNo.length !== 7) {
+      newErrors.regNo = "Must be exactly 7 characters (Eg: 22CS101)";
+    } else if (!/^[0-9]{2}[A-Za-z]{2}[0-9]{3}$/.test(form.regNo)) {
+      newErrors.regNo = "Invalid format (Eg: 22CS101)";
+    }
+
+    if (!form.programme) {
+      newErrors.programme = "Please select a programme";
+    }
+
+    if (!form.name) {
+      newErrors.name = "Name is required";
+    } else if (form.name.length < 3 || form.name.length > 30) {
+      newErrors.name = "Name must be between 3 and 30 characters";
+    } else if (!/^[A-Za-z ]+$/.test(form.name)) {
+      newErrors.name = "Name should contain only letters";
+    }
+
+    if (!form.mobile) {
+      newErrors.mobile = "Mobile number is required";
+    } else if (!/^[0-9]{10}$/.test(form.mobile)) {
+      newErrors.mobile = "Mobile must be exactly 10 digits";
+    }
+
+    return newErrors;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!form.regNo || !form.programme || !form.name || !form.mobile) {
-      setError("Please fill all mandatory fields");
+    const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
-    setError("");
-    alert("Controlled Registration Submitted Successfully");
+    setErrors({});
+    alert("Controlled Registration Submitted Successfully ✅");
   };
 
   return (
@@ -34,16 +68,25 @@ function App() {
         </h3>
 
         <form onSubmit={handleSubmit} style={styles.form}>
+          
           <input
-            style={styles.input}
+            style={{
+              ...styles.input,
+              border: errors.regNo ? "1px solid red" : "1px solid #dcdcdc"
+            }}
             name="regNo"
             placeholder="Registration No *"
             value={form.regNo}
             onChange={handleChange}
+            maxLength={7}
           />
+          {errors.regNo && <p style={styles.fieldError}>{errors.regNo}</p>}
 
           <select
-            style={styles.input}
+            style={{
+              ...styles.input,
+              border: errors.programme ? "1px solid red" : "1px solid #dcdcdc"
+            }}
             name="programme"
             value={form.programme}
             onChange={handleChange}
@@ -52,28 +95,36 @@ function App() {
             <option value="BE">BE</option>
             <option value="BTech">B.Tech</option>
           </select>
+          {errors.programme && <p style={styles.fieldError}>{errors.programme}</p>}
 
           <input
-            style={styles.input}
+            style={{
+              ...styles.input,
+              border: errors.name ? "1px solid red" : "1px solid #dcdcdc"
+            }}
             name="name"
             placeholder="Student Name *"
             value={form.name}
             onChange={handleChange}
           />
+          {errors.name && <p style={styles.fieldError}>{errors.name}</p>}
 
           <p style={styles.preview}>
             Live Preview: {form.name || "-"}
           </p>
 
           <input
-            style={styles.input}
+            style={{
+              ...styles.input,
+              border: errors.mobile ? "1px solid red" : "1px solid #dcdcdc"
+            }}
             name="mobile"
             placeholder="Mobile Number *"
             value={form.mobile}
             onChange={handleChange}
+            maxLength={10}
           />
-
-          {error && <p style={styles.error}>{error}</p>}
+          {errors.mobile && <p style={styles.fieldError}>{errors.mobile}</p>}
 
           <button style={styles.button}>
             Submit
@@ -112,7 +163,7 @@ const styles = {
   form: {
     display: "flex",
     flexDirection: "column",
-    gap: "14px"
+    gap: "8px"
   },
 
   input: {
@@ -128,13 +179,10 @@ const styles = {
     color: "#666"
   },
 
-  error: {
-    color: "#d32f2f",
-    background: "#fdecea",
-    padding: "6px",
-    borderRadius: "6px",
+  fieldError: {
+    color: "red",
     fontSize: "12px",
-    textAlign: "center"
+    marginBottom: "5px"
   },
 
   button: {
