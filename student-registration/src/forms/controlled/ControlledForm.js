@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 function ControlledForm({ goBack }) {
-
   const [form, setForm] = useState({
     regNo: "",
     testDate: "",
@@ -74,26 +73,10 @@ function ControlledForm({ goBack }) {
           onChange={handleChange}
         />
 
-        <input
-          type="date"
-          name="dob"
-          value={form.dob}
-          onChange={handleChange}
-        />
-
-        <input
-          name="father"
-          placeholder="Father's / Guardian's Name"
-          value={form.father}
-          onChange={handleChange}
-        />
-
-        <textarea
-          name="address"
-          placeholder="Address"
-          value={form.address}
-          onChange={handleChange}
-        />
+        {/* Live Preview (shows controlled nature clearly) */}
+        <p style={{ fontSize: "12px", color: "#1f3a5f" }}>
+          Live Name Preview: {form.name}
+        </p>
 
         <input
           name="mobile"
@@ -102,57 +85,11 @@ function ControlledForm({ goBack }) {
           onChange={handleChange}
         />
 
-        <input
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-        />
-
-        <input
-          name="classStudying"
-          placeholder="Class studying / passed"
-          value={form.classStudying}
-          onChange={handleChange}
-        />
-
-        <input
-          name="percentage"
-          placeholder="Last exam percentage"
-          value={form.percentage}
-          onChange={handleChange}
-        />
-
-        <textarea
-          name="school"
-          placeholder="School name & address"
-          value={form.school}
-          onChange={handleChange}
-        />
-
-        <textarea
-          name="reason"
-          placeholder="Reason for choosing the programme"
-          value={form.reason}
-          onChange={handleChange}
-        />
-
-        <textarea
-          name="strengths"
-          placeholder="Academic strengths and weaknesses"
-          value={form.strengths}
-          onChange={handleChange}
-        />
-
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <div style={{ textAlign: "center" }}>
           <button style={styles.primaryBtn}>Submit</button>
-          <button
-            type="button"
-            onClick={goBack}
-            style={styles.backBtn}
-          >
+          <button type="button" onClick={goBack} style={styles.backBtn}>
             Back
           </button>
         </div>
@@ -170,18 +107,15 @@ const styles = {
     borderRadius: "10px",
     boxShadow: "0 8px 18px rgba(0,0,0,0.08)"
   },
-
   title: {
     textAlign: "center",
     color: "#1f3a5f",
     marginBottom: "10px"
   },
-
   form: {
     display: "grid",
     gap: "10px"
   },
-
   primaryBtn: {
     padding: "10px 22px",
     background: "#1f3a5f",
@@ -191,7 +125,6 @@ const styles = {
     marginRight: "10px",
     cursor: "pointer"
   },
-
   backBtn: {
     padding: "10px 22px",
     borderRadius: "5px",
@@ -201,7 +134,5 @@ const styles = {
     cursor: "pointer"
   }
 };
-
-
 
 export default ControlledForm;

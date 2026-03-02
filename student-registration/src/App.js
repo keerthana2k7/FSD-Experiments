@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ControlledForm from "./ControlledForm";
-import UncontrolledForm from "./UncontrolledForm";
+import ControlledForm from "./forms/controlled/ControlledForm";
+import UncontrolledForm from "./forms/uncontrolled/UncontrolledForm";
 
 function App() {
 

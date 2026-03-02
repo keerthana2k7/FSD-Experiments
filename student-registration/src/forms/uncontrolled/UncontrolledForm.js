@@ -6,7 +6,6 @@ function UncontrolledForm({ goBack }) {
   const programmeRef = useRef();
   const nameRef = useRef();
   const mobileRef = useRef();
-  const reasonRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,28 +39,7 @@ function UncontrolledForm({ goBack }) {
 
         <input ref={nameRef} placeholder="Student Name *" />
 
-        <input type="date" placeholder="Date of Birth" />
-
-        <input placeholder="Father's / Guardian's Name" />
-
-        <textarea placeholder="Address" />
-
         <input ref={mobileRef} placeholder="Mobile Number *" />
-
-        <input placeholder="Email" />
-
-        <input placeholder="Class studying / passed" />
-
-        <input placeholder="Last exam percentage" />
-
-        <textarea placeholder="School name & address" />
-
-        <textarea
-          ref={reasonRef}
-          placeholder="Reason for choosing the programme"
-        />
-
-        <textarea placeholder="Academic strengths and weaknesses" />
 
         <div style={{ textAlign: "center" }}>
           <button style={styles.primaryBtn}>Submit</button>
@@ -83,18 +61,15 @@ const styles = {
     borderRadius: "10px",
     boxShadow: "0 8px 18px rgba(0,0,0,0.08)"
   },
-
   title: {
     textAlign: "center",
     color: "#1f3a5f",
     marginBottom: "10px"
   },
-
   form: {
     display: "grid",
     gap: "10px"
   },
-
   primaryBtn: {
     padding: "10px 22px",
     background: "#1f3a5f",
@@ -104,7 +79,6 @@ const styles = {
     marginRight: "10px",
     cursor: "pointer"
   },
-
   backBtn: {
     padding: "10px 22px",
     borderRadius: "5px",
@@ -114,6 +88,5 @@ const styles = {
     cursor: "pointer"
   }
 };
-
 
 export default UncontrolledForm;
