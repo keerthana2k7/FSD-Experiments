@@ -3,7 +3,7 @@ import Student from "./Student";
 function App() {
   return (
     <div style={styles.container}>
-      <h2>Props Example – Student Information</h2>
+      <h2> Student Information</h2>
 
       <Student 
         name="Keerthana"
