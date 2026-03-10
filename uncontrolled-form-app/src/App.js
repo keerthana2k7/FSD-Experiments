@@ -14,13 +14,11 @@ function App() {
     const name = nameRef.current.value.trim();
     const mobile = mobileRef.current.value.trim();
 
-    // Required validation
     if (!regNo || !programme || !name || !mobile) {
       alert("All fields are mandatory");
       return;
     }
 
-    // Registration Number validation
     if (regNo.length !== 7) {
       alert("Registration Number must be exactly 7 characters (Eg: 22CS101)");
       return;
@@ -32,7 +30,6 @@ function App() {
       return;
     }
 
-    // Name validation
     if (name.length < 3 || name.length > 30) {
       alert("Name must be between 3 and 30 characters");
       return;
@@ -44,7 +41,6 @@ function App() {
       return;
     }
 
-    // Mobile validation
     if (mobile.length !== 10) {
       alert("Mobile number must be exactly 10 digits");
       return;
