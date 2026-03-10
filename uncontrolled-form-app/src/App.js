@@ -51,7 +51,7 @@ function App() {
       return;
     }
 
-    alert("Form Submitted Successfully ✅");
+    alert("Form Submitted Successfully");
   };
 
   return (

@@ -57,7 +57,7 @@ function App() {
     }
 
     setErrors({});
-    alert("Controlled Registration Submitted Successfully ✅");
+    alert("Controlled Registration Submitted Successfully ");
   };
 
   return (
