@@ -1,4 +1,3 @@
-
 const http = require('http');
 
 const server = http.createServer((req, res) => {
@@ -6,7 +5,7 @@ const server = http.createServer((req, res) => {
     if (req.method === 'GET' && req.url === '/user') {
         const user = {
             name: "Keerthana",
-            age: 20,
+            age: 19,
             role: "Student"
         };
 
@@ -34,6 +33,7 @@ const server = http.createServer((req, res) => {
             }));
         });
     }
+    
     else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
