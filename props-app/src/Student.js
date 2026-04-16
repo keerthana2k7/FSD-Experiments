@@ -1,22 +1,13 @@
-function Student({ name, department, year }) {
+function Student({regno, programme, name, mobile}) {
   return (
-    <div style={styles.card}>
-      <h3>Student Details</h3>
-      <p><strong>Name:</strong> {name}</p>
-      <p><strong>Department:</strong> {department}</p>
-      <p><strong>Year:</strong> {year}</p>
+    <div style={{marginTop:"20px", textAlign:"center"}}>
+      <h3>Submitted Data</h3>
+      <p>Reg No: {regno}</p>
+      <p>Programme: {programme}</p>
+      <p>Name: {name}</p>
+      <p>Mobile: {mobile}</p>
     </div>
   );
 }
-
-const styles = {
-  card: {
-    width: "300px",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
-    marginTop: "20px"
-  }
-};
 
 export default Student;

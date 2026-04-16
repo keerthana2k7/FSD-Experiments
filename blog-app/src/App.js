@@ -41,7 +41,7 @@ function Nav({ setPage }) {
     <header style={styles.header}>
       <div style={styles.headerContainer}>
         <div style={styles.logo} onClick={() => setPage("home")}>
-          THE MARGIN
+          THE BLOG
         </div>
 
         <nav style={styles.navMenu}>
@@ -198,7 +198,7 @@ function Footer() {
       </div>
 
       <div style={styles.copy}>
-        © 2026 The Margin — All Rights Reserved
+        © 2026 The Blog — All Rights Reserved
       </div>
     </footer>
   );
