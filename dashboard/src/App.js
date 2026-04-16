@@ -21,7 +21,7 @@ function Dashboard() {
   return (
     <div className={`dashboard ${theme}`}>
       
-      {/* HEADER */}
+      {}
       <div className="header">
         <h1>📊 Dashboard</h1>
         <button className="theme-btn" onClick={() =>
@@ -31,13 +31,13 @@ function Dashboard() {
         </button>
       </div>
 
-      {/* WELCOME */}
+      {}
       <div className="welcome-card">
         <h2>Welcome back, {username} 👋</h2>
         <p>Here’s your live dashboard overview</p>
       </div>
 
-      {/* CARDS */}
+      {}
       <div className="grid">
         <div className="card">
           <h3>⏰ Time</h3>
